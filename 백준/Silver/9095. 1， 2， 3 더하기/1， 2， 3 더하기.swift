@@ -1,3 +1,27 @@
+import Foundation
+
+// 이건 왜 안되냐?
+//func solution ()-> Void {
+//    let n = Int(readLine()!)!
+//
+//    for _ in 0..<n{
+//        let num = Int(readLine()!)!
+//        var dp = [Int](repeating: 0, count: 12)
+//        dp[1] = 1
+//        dp[2] = 2
+//        dp[3] = 4
+//
+//        if num >= 4 {
+//            for i in 4 ..< num+1 {
+//                dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+//            }
+//            print(dp[num])
+//        }
+//    }
+//}
+//
+//solution()
+
 let n = Int(readLine()!)!
 
 for _ in 0..<n {

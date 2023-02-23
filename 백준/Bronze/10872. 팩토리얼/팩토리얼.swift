@@ -1,12 +1,13 @@
 import Foundation
 
-let num = Int(readLine()!)!
+let N = Int(readLine()!)!
 
-func calculate (num : Int) -> Int {
-    if num == 0 {
+func recursion(_ N: Int)->Int {
+    if N == 0 {
         return 1
     }
-    return num * calculate(num: num - 1)
+    return N * recursion(N - 1)
+    
 }
 
-print(calculate(num: num))
+print(recursion(N))

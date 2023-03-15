@@ -1,23 +1,19 @@
 import Foundation
 
-let testCase = Int(readLine()!)!
-
-for _ in 0..<testCase {
-
-    let line = readLine()!
-    var count = 0
-
-
-    for char in line {
-        if char == "(" {
-            count += 1
-        } else if char == ")" {
-            count -= 1
-            if count < 0 {
+let n = Int(readLine()!)!
+for _ in 0..<n {
+    let ps = readLine()!
+    var sum = 0
+    
+    for i in ps {
+        if i == "(" {
+            sum += 1
+        } else if i == ")" {
+            sum -= 1
+            if sum < 0 {
                 break
             }
         }
     }
-
-    print(count == 0 ? "YES" : "NO")
+    print(sum == 0 ? "YES" : "NO")
 }

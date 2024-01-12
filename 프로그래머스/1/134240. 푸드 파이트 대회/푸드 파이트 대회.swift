@@ -8,3 +8,6 @@ func solution(_ food:[Int]) -> String {
     ans = ans + String(0) + ans.reversed()
     return ans
 }
+
+
+//sfsdfsdfs

@@ -1,56 +1,43 @@
-import Foundation
+let count = Int(readLine()!)!
 
-let n = Int(readLine()!)!
-var stack : [Int] = []
+var stack: [Int] = []
 
-for _ in 0..<n {
-    let a = readLine()!.split(separator: " ").map {String($0)}
+for _ in 0..<count {
+    let tmpArr: [String] = readLine()!.split(separator: " ").map {String($0)}
+//    tmpArr.append(contentsOf: readLine()!.components(separatedBy: " "))
     
-    switch a[0] {
+    switch tmpArr.first {
     case "push":
-        push(Int(a[1])!)
+        push(Int(tmpArr.last!)!)
     case "pop":
-        print(pop())
+        pop()
     case "size":
-        print(size())
+        size()
     case "empty":
-        print(empty())
+        empty()
     case "top":
-        print(top())
+        top()
     default:
         break
     }
 }
 
-//함수
-func push(_ x : Int) {
-    stack.append(x)
+func push(_ i : Int) {
+    stack.append(i)
 }
 
-func pop() -> Int {
-    if let popValue = stack.popLast() {
-        return popValue
-    } else {
-        return -1
-    }
+func pop(){
+    print(!stack.isEmpty ? stack.popLast()! : -1)
 }
 
-func size() -> Int {
-    return stack.count
+func size() {
+    print(stack.count)
 }
 
-func empty() -> Int {
-    if stack.isEmpty {
-        return 1
-    } else {
-        return 0
-    }
+func empty(){
+    print(stack.isEmpty ? 1 : 0)
 }
 
-func top() -> Int {
-    if let last = stack.last {
-        return last
-    } else {
-        return -1
-    }
+func top(){
+    print(stack.isEmpty ? -1 : stack.last!)
 }

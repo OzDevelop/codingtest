@@ -1,20 +1,11 @@
-import Foundation
+let count = Int(readLine()!)!
 
-let n = Int(readLine()!)!
-
-for _ in 0..<n {
-    let stringArr = readLine()!.split{ $0 == " "}
-    var wordArr = [String]()
-    var revText : String
-    //    print(stringArr)
+for _ in 0..<count {
+    let sentence = readLine()!.split(separator: " ")
+    var result: [String] = []
     
-    for i in stringArr{
-//         print(i)
-        var tmp = String(i.reversed())
-
-//        print(tmp)
-        wordArr.append(tmp)
+    for i in 0..<sentence.count {
+        result.append(String(sentence[i].reversed()))
     }
-    revText = wordArr.joined(separator: " ")
-    print(revText)
+    print(result.joined(separator: " "))
 }

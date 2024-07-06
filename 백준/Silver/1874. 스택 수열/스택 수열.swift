@@ -2,29 +2,26 @@ import Foundation
 
 let n = Int(readLine()!)!
 
-var count = 1
 var stack: [Int] = []
-var answer: [String] = []
+var ans: [String] = []
+var now: Int = 1
 
-
-for _ in 0..<n {
-    
+for _ in 1...n {
     let num = Int(readLine()!)!
     
-    while count <= num {
-        stack.append(count)
-        answer.append("+")
-        count += 1
+    while now <= num {
+        stack.append(now)
+        ans.append("+")
+        now += 1
     }
     
     if stack.last == num {
-        stack.popLast()
-        answer.append("-")
+        stack.removeLast()
+        ans.append("-")
     } else {
         print("NO")
         exit(0)
     }
-    
 }
 
-print(answer.joined(separator: "\n"))
+print(ans.joined(separator: "\n"))

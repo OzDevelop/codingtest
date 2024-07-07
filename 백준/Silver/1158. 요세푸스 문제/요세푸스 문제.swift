@@ -1,23 +1,16 @@
-import Foundation
+let nk = readLine()!.split(separator: " ").map{ Int(String($0))!}
 
-let input = readLine()!.split(separator: " ").map{ Int(String($0))!}
+var nums: [Int] = Array(1...nk[0])
+var ans: [Int] = []
 
-let n = input.first!
-let k = input.last!
+var k = nk[1] - 1
 
-var arr = [Int](1...n)
-var cnt = k
-var newArr = [Int]()
+for _ in 1...nk[0] {
+    ans.append(nums.remove(at: k))
+    if nums.isEmpty { break }
+    k = (k + nk[1] - 1) % nums.count
+    
 
-while !arr.isEmpty {
-    if cnt <= arr.count {
-        newArr.append(arr[cnt-1])
-        arr.remove(at: cnt-1)
-        cnt = cnt + k - 1
-    } else {
-        cnt -= arr.count
-    }
 
-//    print(newArr)
 }
-print("<\(newArr.map{String($0)}.joined(separator: ", "))>")
+print("<" + ans.map({String($0)}).joined(separator: ", ") + ">")

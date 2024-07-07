@@ -1,59 +1,77 @@
-import Foundation
-
 let n = Int(readLine()!)!
+var deque: [Int] = []
 
-var deque = [Int]()
-
-for _ in 0..<n {
-    let a = readLine()!.split(separator: " ").map { String($0) }
-    
-    switch a[0] {
-    case "push_front":
-        push_front(Int(a[1])!)
-    case "push_back":
-        push_back(Int(a[1])!)
-    case "pop_front":
-        print(pop_front())
-    case "pop_back":
-        print(pop_back())
-    case "size":
-        print(size())
-    case "empty":
-        print(empty())
-    case "front":
-        print(front())
-    case "back":
-        print(back())
-    default:
-        break
+func push_front(_ x: Int) {
+    deque.insert(x, at: 0)
+}
+func push_back(_ x: Int) {
+    deque.append(x)
+}
+func pop_front() {
+    if deque.isEmpty {
+        print("-1")
+    } else {
+        print(deque.remove(at: 0))
+    }
+}
+func pop_back() {
+    if deque.isEmpty {
+        print("-1")
+    } else {
+        print(deque.popLast()!)
+    }
+}
+func size() {
+    print(deque.count)
+}
+func empty() {
+    if deque.isEmpty {
+        print("1")
+    } else {
+        print("0")
+    }
+}
+func front() {
+    if deque.isEmpty {
+        print("-1")
+    } else {
+        print(deque.first!)
+    }
+}
+func back() {
+    if deque.isEmpty {
+        print("-1")
+    } else {
+        print(deque.last!)
     }
 }
 
 
-// 함수
-func push_front(_ x : Int) {
-    deque.insert(x, at: 0)
-}
-func push_back(_ x : Int) {
-    deque.append(x)
-}
-func pop_front()-> Int{
-    deque.isEmpty ? -1 : deque.removeFirst()
-}
-func pop_back()-> Int{
-    deque.isEmpty ? -1 : deque.removeLast()
+for _ in 0..<n {
+    let cmd = readLine()!.split(separator: " ")
     
-}
-func size()-> Int {
-    return deque.count
-}
-func empty() -> Int {
-    deque.isEmpty ? 1 : 0
-}
-func front() -> Int {
-    deque.isEmpty ? -1 : deque.first!
-}
-func back() -> Int{
-    deque.isEmpty ? -1 : deque.last!
-
+    switch cmd[0] {
+    case "push_front":
+        if let x = Int(cmd[1]) {
+            push_front(x)
+        }
+    case "push_back":
+        if let x = Int(cmd[1]) {
+            push_back(x)
+        }
+    case "pop_front":
+        pop_front()
+    case "pop_back":
+        pop_back()
+    case "size":
+        size()
+    case "empty":
+        empty()
+    case "front":
+        front()
+    case "back":
+        back()
+    default:
+        break
+    }
 }

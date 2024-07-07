@@ -1,53 +1,62 @@
-import Foundation
-
 let n = Int(readLine()!)!
 var queue: [Int] = []
 
 for _ in 0..<n {
-    let a = readLine()!.split(separator: " ").map {String($0)}
-    
-    switch a[0] {
+    let cmd = readLine()!.split(separator: " ")
+    switch cmd[0] {
     case "push":
-        push(Int(a[1])!)
+        if let x = Int(cmd[1]) {
+            push(x)
+        }
     case "pop":
-        print(pop())
+        pop()
     case "size":
-        print(size())
+        size()
     case "empty":
-        print(empty())
+        empty()
     case "front":
-        print(front())
+        front()
     case "back":
-        print(back())
+        back()
     default:
         break
+        
     }
-
 }
 
-func push (_ x : Int) {
+func push(_ x: Int) {
     queue.append(x)
 }
 
-func pop () -> Int {
-    if size() != 0 {
-        return queue.removeFirst()
+func pop() {
+    if !queue.isEmpty {
+        print(queue[0])
+        queue.removeFirst()
     } else {
-        return -1
+        print("-1")
     }
 }
 
-func size() -> Int{
-    return queue.count
+func size() {
+    print(queue.count)
 }
-func empty () -> Int {
-    if queue.isEmpty {
-        return 1
-    } else { return 0 }
+
+func empty() {
+    print(queue.isEmpty ? "1" : "0")
 }
-func front() -> Int {
-        return queue.first ?? -1
+
+func front() {
+    if !queue.isEmpty {
+        print(queue.first!)
+    } else {
+        print("-1")
+    }
 }
-func back() -> Int {
-        return queue.last ?? -1
+
+func back() {
+    if !queue.isEmpty {
+        print(queue.last!)
+    } else {
+        print("-1")
+    }
 }

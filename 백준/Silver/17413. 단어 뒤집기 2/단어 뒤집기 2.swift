@@ -1,43 +1,35 @@
-//MARK: -   이거 가져온 거임 내가 함 풀어보기
-import Foundation
+let sentence = readLine()!
 
-let a = readLine()!
+var ans = ""
+var tmpStr = ""
+var check = true
 
-var tag = ""
-var word = ""
-
-for char in a {
-    
-    if char == "<" {
+for char in sentence {
+    switch char {
+    case "<":
+        ans += tmpStr.reversed()
+        ans.append(char)
+        tmpStr = ""
+        check = false
         
-        tag.append(char)
-        if !word.isEmpty {
-            print(String(word.reversed()),terminator: "")
-            word = ""
-        }
+    case ">":
+        ans.append(char)
+        check = true
         
-    } else if char == ">" {
-        
-        tag.append(char)
-        print(tag,terminator: "")
-        tag = ""
-        
-    } else {
-        
-        if tag.first == "<" {
-            tag.append(char)
-
-        } else if char == " " {
-            print(String(word.reversed()),terminator: " ")
-            word = ""
-
+    default:
+        if check {
+            if char == " " {
+                ans += tmpStr.reversed() + " "
+                tmpStr = ""
+            } else {
+                tmpStr.append(char)
+            }
         } else {
-            word.append(char)
-
+            ans.append(char)
         }
     }
 }
-
-if !word.isEmpty {
-    print(String(word.reversed()))
+if !tmpStr.isEmpty {
+    ans += tmpStr.reversed()
 }
+print(ans)

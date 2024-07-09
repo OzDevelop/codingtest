@@ -1,19 +1,19 @@
-import Foundation
+let input = Array(readLine()!)
 
-let input = readLine()!.map{String($0)}
-var stack = 0
-var count = 0
+var laserCnt = 0
+var validNum = 0
+var ans = 0
 
 for i in 0..<input.count {
     if input[i] == "(" {
-        stack += 1
-    } else {
-        stack -= 1
+        validNum += 1
+    } else if input[i] == ")" {
+        validNum -= 1
         if input[i-1] == "(" {
-            count += stack
+            ans += validNum
         } else {
-            count += 1
+            ans += 1
         }
     }
 }
-print(count)
+print(ans)

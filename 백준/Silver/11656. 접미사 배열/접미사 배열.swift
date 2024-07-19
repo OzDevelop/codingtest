@@ -1,15 +1,12 @@
-//import Foundation
-
-var input = readLine()!.map{String($0)}
-//var input = Array(readLine()!)
-var suffix = [String]()
+var input = readLine()!
+var ans: [String] = []
 
 for _ in 0..<input.count {
-    suffix.append(input.joined())
-    input.remove(at: 0)
+    ans.append(input)
+    input.removeFirst()
 }
-suffix.sort()
 
-for i in suffix {
+ans.sort(by: <)
+for i in ans {
     print(i)
 }

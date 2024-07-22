@@ -1,16 +1,19 @@
-import Foundation
+let input = readLine()!.split(separator: " ").map{ Int(String($0))!}
 
-let arr = readLine()!.split(separator: " ").map{Int(String($0))!}
-
-var max = arr.max()!
-var min = arr.min()!
-var r = max%min
-
-while r > 0 {
-    max = min
-    min = r
-    r = max%min
+func gcd(a: Int, b: Int )  -> Int { // a > b
+    var (a, b) = (a, b)
+    
+    while b != 0 {
+        let r = b
+        b = a % b
+        a = r
+    }
+    return a
 }
 
-print(min)
-print(arr[0]*arr[1]/min)
+func lcm(a: Int, b: Int) -> Int {
+    return (a * b) / gcd(a: a, b: b)
+}
+
+print(gcd(a: input[0], b: input[1]))
+print(lcm(a: input[0], b: input[1]))

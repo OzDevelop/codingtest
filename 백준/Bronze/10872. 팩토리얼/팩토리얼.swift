@@ -1,13 +1,10 @@
-import Foundation
+let input = Int(readLine()!)!
+var ans = 1
 
-let N = Int(readLine()!)!
-
-func recursion(_ N: Int)->Int {
-    if N == 0 {
-        return 1
+if input != 0 {
+    for i in 1...input {
+        ans *= i
     }
-    return N * recursion(N - 1)
-    
 }
-
-print(recursion(N))
+    
+print(ans)

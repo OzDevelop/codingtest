@@ -1,10 +1,3 @@
-//
-//  main.swift
-//  11727_2xn타일링2
-//
-//  Created by 변상필 on 2023/05/03.
-//
-
 import Foundation
 
 let n = Int(readLine()!)!

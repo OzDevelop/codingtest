@@ -1,18 +1,23 @@
 import Foundation
 
-let n = Int(readLine()!)!
-var dp: [Int] = Array(repeating: 0, count: n+1)
+let input = Int(readLine()!)!
+var dp: [[Int]] = Array(repeating: Array(repeating: 0, count: 2), count: input+1)
+var ans = 0
 
-if n == 1 {
+if input == 1 {
     print(1)
-} else if n == 2 {
+} else if input == 2 {
     print(1)
 } else {
-    for i in 3..<n+1 {
-        dp[1] = 1
-        dp[2] = 1
-        dp[i] = dp[i-1] + dp[i-2]
-//        print(dp)
+    dp[1][1] = 1
+    dp[2][0] = 1
+    for i in 3..<input+1 {
+        dp[i][0] = dp[i-1][0] + dp[i-1][1]
+        dp[i][1] = dp[i-1][0]
+        
     }
-    print(dp[n])
+    ans = dp[input][0...1].reduce(0) {
+        $0+$1
+    }
+    print(ans)
 }

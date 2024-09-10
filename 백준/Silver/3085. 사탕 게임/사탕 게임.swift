@@ -1,60 +1,72 @@
 import Foundation
 
-let n = Int(readLine()!) ?? 0
+
+// 이 코드 틀렸음 다시 보기.
+let n = Int(readLine()!)!
 var board: [[Character]] = []
+var answer = 0
+
 for _ in 0..<n {
     board.append(Array(readLine()!))
 }
 
-var answer = 0
-
+/// 보드의 좌하우상 순으로 돌면서 비교
 func changeBoard(_ board: [[Character]], r: Int, c: Int) {
     let dx = [-1, 0, 1, 0] // column
     let dy = [0, 1, 0, -1] // row
-    for i in 0..<4 {
-        let rr = r + dy[i]
-        let cc = c + dx[i]
+    
+    for i in 0..<4 { // 4방향 모두 비교해야하므로 4회 반복
+        let rr = r + dy[i] // 현재 row 에서 이동
+        let cc = c + dx[i] // 현재 column에서 이동
+        
+        // 보드의 범위를 확인하기 위한 조건문
         if rr >= 0 && rr < n && cc >= 0 && cc < n {
-            var changedBoard = board // 놓친 부분 -> 4방향으로 갈때마다 보드를 초기화 해야하는데 그전에 초기화해서 정보가 남아버림..
+            // 복사본을 생성하여 인접 위치와 교환
+            var changedBoard = board
             changedBoard[rr][cc] = board[r][c]
             changedBoard[r][c] = board[rr][cc]
-            answer = max(answer, cntRowMax(changedBoard), cntColumnMax(changedBoard))
+            // 변경된 보드에서의 최대 연속값 검사
+            answer = max(answer, countRow(changedBoard), countColumn(changedBoard))
         }
     }
 }
 
-func cntRowMax(_ board: [[Character]]) -> Int {
-    var maxCnt = 0
+/// 행의 최대개수 구하기
+func countRow(_ board: [[Character]]) -> Int {
+    var result = 0
+    
     for i in 0..<n {
-        var rowCnt = 1
+        var count = 1
         for j in 0..<n-1 {
             if board[i][j] == board[i][j+1] {
-                rowCnt += 1
-            } else  {
-                maxCnt = max(maxCnt, rowCnt)
-                rowCnt = 1
+                count += 1
+            } else {
+                result = max(result, count)
+                count = 1
             }
         }
-        maxCnt = max(maxCnt, rowCnt) // 놓쳤던 부분 - 계속 같은거면 maxCnt가 갱신이 안댐
+        result = max(result, count) // 끝까지 같은 값일 경우 else문을 들어가지 않아 최대값이 기록되지 않을 수 있으므로
     }
-    return maxCnt
+    return result
 }
 
-func cntColumnMax(_ board: [[Character]]) -> Int {
-    var maxCnt = 0
+/// 열의 최대개수 구하기
+func countColumn(_ board: [[Character]]) -> Int {
+    var result = 0
+    
     for i in 0..<n {
-        var columnCnt = 1
+        var count = 1
         for j in 0..<n-1 {
             if board[j][i] == board[j+1][i] {
-                columnCnt += 1
+                count += 1
             } else {
-                maxCnt = max(maxCnt, columnCnt)
-                columnCnt = 1
+                result = max(result, count)
+                count = 1
             }
         }
-        maxCnt = max(maxCnt, columnCnt) // 놓쳤던 부분 - 계속 같은거면 maxCnt가 갱신이 안댐
+        result = max(result, count)
     }
-    return maxCnt
+    return result
 }
 
 for i in 0..<n {

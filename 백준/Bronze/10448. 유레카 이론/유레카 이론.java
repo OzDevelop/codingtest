@@ -1,44 +1,35 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Main {
-        public static void main(String[] args) throws IOException {
+class Main
+{
+    static boolean[] isEurekaNumber = new boolean[1001];
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int test_case = Integer.parseInt(br.readLine());
-
-        int number;
-
-        ArrayList<Integer> array = new ArrayList<>();
-        int cal;
-        for (int i=1; ; i++) {
-            cal = (i*(i+1))/2;
-            if(cal>1000) break;
-            else array.add(cal);
+    public static void preprocess() {
+        int[] triangleNumbers = new int[50];
+        int triangleNumberCount = 0;
+        for (int i = 1; ; i++) {
+            int triangleNumber = i * (i + 1) / 2;
+            if (triangleNumber > 1000) break;
+            triangleNumbers[triangleNumberCount++] = triangleNumber;
         }
 
-        boolean Eureka;
-        for(int i=0; i<test_case; i++) {
-            Eureka = false;
-            number = Integer.parseInt(br.readLine());
-            for(int j=0; j<array.size(); j++) {
-                for(int k=0; k<array.size(); k++) {
-                    for(int l=0; l<array.size(); l++) {
-                        cal = array.get(j)+array.get(k)+array.get(l);
-                        if(cal==number) {
-                            Eureka = true;
-                            break;
-                        }
-                    }
+        for (int i = 0; i < triangleNumberCount; i++)
+            for (int j = i; j < triangleNumberCount; j++)
+                for (int k = j; k < triangleNumberCount; k++) {
+                    int eurekaNumber = triangleNumbers[i] + triangleNumbers[j] + triangleNumbers[k];
+                    if (eurekaNumber > 1000) break;
+                    isEurekaNumber[eurekaNumber] = true;
                 }
-            }
-            if(Eureka) {
-                System.out.println(1);
-            } else {
-                System.out.println(0);
-            }
+    }
+
+    public static void main (String[] args) {
+        preprocess();
+
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while (T-- > 0) {
+            int K = sc.nextInt();
+            System.out.println(isEurekaNumber[K] ? "1" : "0");
         }
     }
 }

@@ -1,98 +1,87 @@
+/*
+🦊 검증 케이스 줄이기
+인접한 칸의 교환 시 네 방향을 모두 확인하는 것이 아닌
+증가하는 두 방향만 확인을 통해 케이스를 줄일 수 있다. => 중복 확인 경우를 줄일 수 있음
+A B C  가 있다고 가정할때, B에서도 E를 확인하고, E에서도 B를 검증하는 등 중복이 발생하기 때문
+D E F
+G H I
+
+🦊배열의 인접칸 조사할 경우 항상 범위를 우선 확인하자.(올바른 좌표인지)
+
+🦊시간 복잡도 - O(N^4)
+ */
 import java.util.Scanner;
 
-// 사탕 게임
 public class Main {
+
+    public static int findMaxRow(char[][] map) {
+        int N = map.length;
+        int maxRow = 0;
+        for (int r = 0; r < N; r++) {
+            int len = 1;
+            for (int c = 1; c < N; c++) {
+                if (map[r][c] == map[r][c - 1]) len++;
+                else {
+                    maxRow = Math.max(maxRow, len);
+                    len = 1;
+                }
+            }
+            maxRow = Math.max(maxRow, len);
+        }
+        return maxRow;
+    }
+
+    public static int findMaxColumn(char[][] map) {
+        int N = map.length;
+        int maxColumn = 0;
+        for (int c = 0; c < N; c++) {
+            int len = 1;
+            for (int r = 1; r < N; r++) {
+                if (map[r][c] == map[r - 1][c]) len++;
+                else {
+                    maxColumn = Math.max(maxColumn, len);
+                    len = 1;
+                }
+            }
+            maxColumn = Math.max(maxColumn, len);
+        }
+        return maxColumn;
+    }
+
+
+
+
+    public static void swapCandy(char[][] map, int r1, int c1, int r2, int c2) {
+        char temp = map[r1][c1];
+      map[r1][c1] = map[r2][c2];
+      map[r2][c2] = temp;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        char[][] map = new char[N][N];
+        for (int i = 0; i < N; i++)
+            map[i] = sc.next().toCharArray();
 
-        int N = sc.nextInt(); // size
-        int ans = 0; // answer
-
-        char[][] candy = new char[N][N];
-        for (int i = 0; i < N; i++) {
-            char[] row = sc.next().toCharArray();
-
-            for (int j = 0; j < N; j++) {
-                candy[i][j] = row[j];
-            }
-        }
-//        System.out.println(Arrays.deepToString(candy));
-
-
-        //changePosition, 상하좌우 위치 바꾸기
-        int[] dx = {0, -1, 0, 1};
-        int[] dy = {-1, 0, 1, 0};
-
+        int ans = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                for (int k = 0; k < 4; k++) {
-                    int nextX = i + dx[k];
-                    int nextY = j + dy[k];
+                //나는 반복문으로 상하좌우 4방향을 돌았으나,
+                //이 풀이에서는 증가하는 방향(우, 하) 두 방향만 검증
+                if (j + 1 < N && map[i][j] != map[i][j+1]) {
+                    swapCandy(map, i, j, i, j+1);
+                    ans = Math.max(ans, Math.max(findMaxColumn(map), findMaxRow(map)));
+                    swapCandy(map, i, j, i, j+1);
+                }
 
-                    if( nextX >= 0 && nextX < N && nextY >= 0 && nextY < N ) {
-                        // 위치 교환
-                        swap(candy, i, j, nextX, nextY);
-
-                        // 최대 연속값 계산
-                        ans = Math.max(ans, getMaxCandy(candy));
-
-                        // 위치 복원
-                        swap(candy, i, j, nextX, nextY);
-                    }
+                if(i+1 < N && map[i][j] != map[i+1][j]) {
+                    swapCandy(map, i, j, i+1, j);
+                    ans = Math.max(ans, Math.max(findMaxColumn(map), findMaxRow(map)));
+                    swapCandy(map, i, j, i+1, j);
                 }
             }
         }
-
         System.out.println(ans);
-    }
-
-    public static int countRow(char[][] candy) {
-        int result = 0;
-
-        for (int i = 0; i < candy.length; i++) {
-            int count = 1;
-            for (int j = 0; j < candy[i].length - 1; j++) {
-                if (candy[i][j] == candy[i][j+1]) {
-                    count++;
-                } else {
-                    result = Math.max(result, count);
-                    count = 1;
-                }
-            }
-            result = Math.max(result, count);
-        }
-        return result;
-    }
-
-    public static int countCol(char[][] candy) {
-        int result = 0;
-        for (int i = 0; i < candy.length; i++) {
-            int count = 1;
-            for (int j = 0; j < candy[i].length - 1; j++) {
-                if(candy[j][i] == candy[j+1][i]) {
-                    count++;
-                } else {
-                    result = Math.max(result, count);
-                    count = 1;
-                }
-            }
-            result = Math.max(result, count);
-        }
-        return result;
-    }
-
-    // 행과 열에서 가장 긴 연속 사탕의 길이를 반환하는 함수
-    public static int getMaxCandy(char[][] candy) {
-        int maxCandy = 0;
-        maxCandy = Math.max(maxCandy, countRow(candy)); // 행 기준
-        maxCandy = Math.max(maxCandy, countCol(candy)); // 열 기준
-        return maxCandy;
-    }
-
-    // 두 위치의 사탕을 교환하는 함수
-    public static void swap(char[][] candy, int x1, int y1, int x2, int y2) {
-        char temp = candy[x1][y1];
-        candy[x1][y1] = candy[x2][y2];
-        candy[x2][y2] = temp;
     }
 }

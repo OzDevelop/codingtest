@@ -1,8 +1,11 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
@@ -38,6 +41,7 @@ public class Main {
         }
 //        System.out.println(Arrays.deepToString(acc));
 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         while(M-- > 0) {
             int x1 = sc.nextInt();
             int y1 = sc.nextInt();
@@ -45,8 +49,11 @@ public class Main {
             int y2 = sc.nextInt();
 //            System.out.println(Arrays.toString(point));
 
-            int result = acc[x2][y2] - acc[x1 -1][y2] - acc[x2][y1 - 1] + acc[x1 - 1][y1 - 1];
-            System.out.println(result);
+//            int result = acc[x2][y2] - acc[x1 -1][y2] - acc[x2][y1 - 1] + acc[x1 - 1][y1 - 1];
+//            System.out.println(result);
+
+            bw.write(acc[x2][y2] - acc[x1 - 1][y2] - acc[x2][y1 - 1] + acc[x1 - 1][y1 - 1] + "\n");
         }
+        bw.flush();
     }
 }

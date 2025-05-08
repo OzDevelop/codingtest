@@ -20,11 +20,11 @@ public class Main {
         for(int i = 0; i < N; i++) {
             budget[i] = Integer.parseInt(br.readLine());
         }
-        System.out.println(getMinWithdrawMoney(budget));
+        System.out.println(getMinDrawMoney(budget));
 
     }
 
-    private static int getMinWithdrawMoney(int[] budget) {
+    private static int getMinDrawMoney(int[] budget) {
         int l = Arrays.stream(budget).max().getAsInt(), r = Arrays.stream(budget).sum();
         int ans = 0;
 

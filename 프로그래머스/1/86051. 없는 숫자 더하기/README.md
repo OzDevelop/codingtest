@@ -1,10 +1,10 @@
 # [level 1] 없는 숫자 더하기 - 86051 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/86051) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/86051?language=java) 
 
 ### 성능 요약
 
-메모리: 16.6 MB, 시간: 0.16 ms
+메모리: 80.1 MB, 시간: 0.03 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 1월 3일 10:14:49
+2025년 09월 03일 20:04:54
 
 ### 문제 설명
 

@@ -3,16 +3,18 @@ import java.util.*;
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
-        Map<Character, Integer> lastIdx = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
         
-        for(int i=0; i<s.length(); i++) {
-            char c = s.charAt(i);
-            if(lastIdx.containsKey(c)) {
-                answer[i] = i - lastIdx.get(c);
-            } else {
+        char[] arr = s.toCharArray();
+    
+        for(int i=0; i<arr.length; i++) {
+            if(!map.containsKey(arr[i])) {
+                map.put(arr[i], i);
                 answer[i] = -1;
+            } else {
+                answer[i] = i - map.get(arr[i]);
+                map.put(arr[i], i);
             }
-            lastIdx.put(c, i);
         }
         
         return answer;

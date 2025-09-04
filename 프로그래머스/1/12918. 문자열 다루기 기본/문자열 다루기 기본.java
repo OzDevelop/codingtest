@@ -1,13 +1,16 @@
 class Solution {
     public boolean solution(String s) {
-        if (s.length() == 4 || s.length() == 6) {
-            try {
-                Integer.parseInt(s);
-                return true; 
-            } catch (Exception e) {
-                return false; 
-            }
+        boolean answer = true;
+        
+        char[] arr = s.toCharArray();
+        if(!(arr.length == 4 || arr.length == 6)) {
+            return false;
         }
-        return false;
+        
+        for(int i=0; i<arr.length; i++) {
+            if(Character.isLetter(arr[i])) return false;
+        }
+        
+        return true;
     }
 }
